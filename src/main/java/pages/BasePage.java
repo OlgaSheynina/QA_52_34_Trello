@@ -14,6 +14,14 @@ public abstract class BasePage {
         driver = wd;
     }
 
+    public void pause(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean isTextInElementPresent
             (WebElement element, String text) {
         try {
@@ -23,6 +31,22 @@ public abstract class BasePage {
         } catch (RuntimeException e) {
             e.printStackTrace();
             System.out.println("created exception");
+        }
+        return false;
+    }
+
+    public void clickWait(WebElement element) {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions
+                        .elementToBeClickable(element)).click();
+    }
+
+    public boolean isUrlContainsText(String text) {
+        try {
+            return new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.urlContains(text));
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
         return false;
     }
