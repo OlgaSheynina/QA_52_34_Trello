@@ -26,6 +26,22 @@ public class BoardsPage extends BasePage {
     WebElement inputBoardTitle;
     @FindBy(xpath = "//button[@data-testid='create-board-submit-button']")
     WebElement btnCreate;
+    @FindBy(xpath = "//h3[text() = 'Board deleted.']")
+    WebElement popUpMassageBoardDeleted;
+    @FindBy(xpath = "//button[@data-testid = 'header-member-menu-button']")
+    WebElement btnAccount;
+    @FindBy(xpath = "//span[text() = 'Manage account']")
+    WebElement btnManageAccount;
+
+
+    public void openMyAccount() {
+        clickWait(btnAccount);
+        clickWait(btnManageAccount);
+    }
+
+    public boolean validatePopUpMassageBoardDeleted(String text) {
+        return isTextInElementPresent(popUpMassageBoardDeleted, text);
+    }
 
     public boolean isButtonCreateNotClickable() {
         return new WebDriverWait(driver, Duration.ofSeconds(5))
